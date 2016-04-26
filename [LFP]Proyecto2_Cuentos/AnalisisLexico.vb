@@ -24,38 +24,42 @@ Class AnalisisLexico
                 indice = 0
             Case "a" To "z"
                 indice = 1
-            Case Chr(32) 'ESPACIO
-                indice = 2
             Case "0" To "9"
+                indice = 2
+            Case Chr(32) 'ESPACIO
                 indice = 3
-            Case "{"
+            Case Chr(10) 'RETORNO
                 indice = 4
-            Case "}"
+            Case Chr(9) 'TAB
                 indice = 5
-            Case ";"
+            Case Chr(34) 'COMILLAS DOBLES
                 indice = 6
             Case ":"
                 indice = 7
-            Case "="
-                indice = 8
-            Case ","
-                indice = 9
-            Case "-"
-                indice = 10
-            Case "["
-                indice = 11
-            Case "]"
-                indice = 12
-            Case Chr(34) 'COMILLAS DOBLES
-                indice = 13
-            Case "#"
-                indice = 14
-            Case Chr(9) 'TAB
-                indice = 15
-            Case Chr(10) 'SALTO
-                indice = 16
             Case "."
-                indice = 24
+                indice = 8
+            Case "\"
+                indice = 9
+            Case "{"
+                indice = 10
+            Case "}"
+                indice = 11
+            Case "="
+                indice = 12
+            Case "+"
+                indice = 13
+            Case "-"
+                indice = 14
+            Case "*"
+                indice = 15
+            Case "/"
+                indice = 16
+            Case "("
+                indice = 17
+            Case ")"
+                indice = 18
+            Case "#"
+                indice = 19
         End Select
 
         Return indice
