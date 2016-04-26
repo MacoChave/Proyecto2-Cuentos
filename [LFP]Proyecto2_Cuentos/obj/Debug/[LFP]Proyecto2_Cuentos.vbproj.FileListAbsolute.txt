@@ -1,1 +1,11 @@
 c:\users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\bin\Debug\[LFP]Proyecto2_Cuentos.exe.config
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\bin\Debug\[LFP]Proyecto2_Cuentos.exe
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\bin\Debug\[LFP]Proyecto2_Cuentos.pdb
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\bin\Debug\[LFP]Proyecto2_Cuentos.xml
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\_LFP_Proyecto2_Cuentos.Desarrollador.resources
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\_LFP_Proyecto2_Cuentos.Inicio.resources
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\_LFP_Proyecto2_Cuentos.Resources.resources
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\[LFP]Proyecto2_Cuentos.vbproj.GenerateResource.Cache
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\[LFP]Proyecto2_Cuentos.exe
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\[LFP]Proyecto2_Cuentos.xml
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\[LFP]Proyecto2_Cuentos.pdb
