@@ -14,51 +14,64 @@ Class AnalisisLexico
     Dim errorEncontrado As New Errores
 
     Public Sub Analizar(texto As String)
+        ListaToken.listaToken.Clear()
+        ListaError.listaError.Clear()
+        estado = 0
+        fila = 1
+        columna = 0
 
+        texto += "#"
+        For i As Integer = 0 To texto.Count - 1 Step 1
+            caracter = texto.Chars(i)
+            tipoCaracter = Get_TipoCaracter(caracter)
+            Select Case estado
+
+            End Select
+        Next
     End Sub
 
     Private Function Get_TipoCaracter(caracter) As Integer
         Dim indice As Integer
         Select Case caracter
-            Case "A" To "Z"
+            Case "_"
                 indice = 0
-            Case "a" To "z"
+            Case "A" To "Z"
                 indice = 1
-            Case "0" To "9"
+            Case "a" To "z"
                 indice = 2
-            Case Chr(32) 'ESPACIO
-                indice = 3
-            Case Chr(10) 'RETORNO
-                indice = 4
-            Case Chr(9) 'TAB
-                indice = 5
             Case Chr(34) 'COMILLAS DOBLES
-                indice = 6
-            Case ":"
-                indice = 7
-            Case "."
-                indice = 8
-            Case "\"
-                indice = 9
-            Case "{"
-                indice = 10
-            Case "}"
-                indice = 11
-            Case "="
-                indice = 12
+                indice = 3
+            Case "0" To "9"
+                indice = 4
             Case "+"
-                indice = 13
+                indice = 5
             Case "-"
-                indice = 14
+                indice = 6
             Case "*"
-                indice = 15
+                indice = 7
             Case "/"
-                indice = 16
+                indice = 8
             Case "("
-                indice = 17
+                indice = 9
             Case ")"
-                indice = 18
+                indice = 10
+            Case "{"
+                indice = 11
+            Case "}"
+                indice = 12
+            Case "="
+                indice = 13
+            Case "."
+                indice = 14
             Case "#"
+                indice = 15
+            Case Chr(32) 'ESPACIO
+                indice = 16
+            Case Chr(10) 'RETORNO
+                indice = 17
+            Case Chr(9) 'TAB
+                indice = 18
+            Case Else 'CUALQUIER CARACTER
                 indice = 19
         End Select
 
