@@ -112,7 +112,13 @@ Public Class AnalisisLexico
                             columna += 1
                             estado = 4
                             '# -> ESTADO F - 5
-                        Case 15 '#
+                        Case 15 ',
+                            lexema = caracter
+                            token = caracter
+                            id_aux = tipoCaracter
+                            columna += 1
+                            estado = 4
+                        Case 16 '#
                             Try
                                 If (texto.Count - 1 <> i) Then
                                     columna += 1
@@ -123,15 +129,15 @@ Public Class AnalisisLexico
                             Catch ex As Exception
                                 MessageBox.Show(ex.Message)
                             End Try
-                            '16 - ESPACIO
-                        Case 16
-                            columna += 1
-                            '17 - RETORNO
+                            '17 - ESPACIO
                         Case 17
+                            columna += 1
+                            '18 - RETORNO
+                        Case 18
                             columna = 0
                             fila += 1
-                            '18 - TAB
-                        Case 18
+                            '19 - TAB
+                        Case 19
                             columna += 4
                         Case Else
                             'AGREGAR ERROR
@@ -159,87 +165,87 @@ Public Class AnalisisLexico
                         Case Else
                             If (lexema.Equals("class")) Then
                                 token = "clase"
-                                id_aux = 23
+                                id_aux = 24
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("def")) Then
                                 token = "definicion"
-                                id_aux = 24
+                                id_aux = 25
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("__init__")) Then
                                 token = "constructor"
-                                id_aux = 25
+                                id_aux = 26
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("self")) Then
                                 token = "referencia"
-                                id_aux = 26
+                                id_aux = 27
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("traductor_a_voz")) Then
                                 token = "metodoTraducir"
-                                id_aux = 27
+                                id_aux = 28
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("resaltar_palabra")) Then
                                 token = "metodoTexto"
-                                id_aux = 28
+                                id_aux = 29
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("mostrar_texto_cuento")) Then
                                 token = "metodoResaltar"
-                                id_aux = 29
+                                id_aux = 30
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("titulo")) Then
                                 token = "variableTitulo"
-                                id_aux = 30
+                                id_aux = 31
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("cuento")) Then
                                 token = "variableCuento"
-                                id_aux = 31
+                                id_aux = 32
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("imagen")) Then
                                 token = "variableImagen"
-                                id_aux = 32
+                                id_aux = 33
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("tipoVoz")) Then
                                 token = "variableTipoVoz"
-                                id_aux = 33
+                                id_aux = 34
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("volumen")) Then
                                 token = "variableVolumen"
-                                id_aux = 34
+                                id_aux = 35
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("velocidad")) Then
                                 token = "variableVelocidad"
-                                id_aux = 35
+                                id_aux = 36
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("traduccion")) Then
                                 token = "variableTraduccion"
-                                id_aux = 36
+                                id_aux = 37
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("resaltar")) Then
                                 token = "variableResaltar"
-                                id_aux = 37
+                                id_aux = 38
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("texto")) Then
                                 token = "variableTexto"
-                                id_aux = 38
+                                id_aux = 39
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("True")) Then
                                 token = "true"
-                                id_aux = 39
+                                id_aux = 40
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("False")) Then
                                 token = "false"
-                                id_aux = 40
+                                id_aux = 41
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("Female")) Then
                                 token = "f"
-                                id_aux = 41
+                                id_aux = 42
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("Male")) Then
                                 token = "m"
-                                id_aux = 42
+                                id_aux = 43
                                 'AGREGAR TOKEN
                             Else
                                 token = "nombre"
-                                id_aux = 22
+                                id_aux = 23
                                 'AGREGAR TOKEN
                             End If
                             tokenEncontrado = New Token
@@ -264,11 +270,7 @@ Public Class AnalisisLexico
                             columna += 1
                             estado = 7
                             'caracter -> ESTADO G - 6
-                        Case 1, 2 'L, l
-                            lexema += caracter
-                            columna += 1
-                            estado = 6
-                        Case 19 'caracter
+                        Case Else 'L, l, caracter
                             lexema += caracter
                             columna += 1
                             estado = 6
@@ -334,9 +336,6 @@ Public Class AnalisisLexico
                             columna += 1
                             estado = 4
                             'caracter -> ESTADO G - 6
-                        Case 1, 2 'L, l
-                            lexema += caracter
-                            columna += 1
                         Case Else
                             lexema += caracter
                             columna += 1
@@ -361,6 +360,7 @@ Public Class AnalisisLexico
                     End Select
                 Case 8 'ESTADO I
                     Select Case tipoCaracter
+                        'INICIA COMENTARIO DE VARIAS LÍNEAS
                         '" -> ESTADO  J - 9
                         Case 3
                             lexema = Nothing
@@ -384,7 +384,7 @@ Public Class AnalisisLexico
                             lexema = Nothing
                             columna += 1
                             estado = 10
-                            'cualquiera ERROR
+                            'cualquier caracter
                         Case Else
                             columna += 1
                     End Select
@@ -462,16 +462,18 @@ Public Class AnalisisLexico
                 indice = 13
             Case "."
                 indice = 14
-            Case "#"
+            Case ","
                 indice = 15
-            Case Chr(32) 'ESPACIO
+            Case "#"
                 indice = 16
-            Case Chr(10) 'RETORNO
+            Case Chr(32) 'ESPACIO
                 indice = 17
-            Case Chr(9) 'TAB
+            Case Chr(10) 'RETORNO
                 indice = 18
-            Case Else 'CUALQUIER CARACTER
+            Case Chr(9) 'TAB
                 indice = 19
+            Case Else 'CUALQUIER CARACTER
+                indice = 20
         End Select
 
         Return indice

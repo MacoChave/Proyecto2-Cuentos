@@ -13,10 +13,11 @@ Class crearArchivo
         html += "<title>Tabla de Token</title>" & vbCrLf
         html += "</head>" & vbCrLf
         html += "<body>" & vbCrLf
-        html += "<ul><li><a href=" & Chr(34) & "grafica.html" & Chr(34) & ">Resultados</a></li>" & vbCrLf
-        html += "<li><a href=" & Chr(34) & "#" & Chr(34) & ">Lista Token</a></li>" & vbCrLf
+        html += "<header><div class = " & Chr(34) & "menu" & Chr(34) & ">" & vbCrLf
+        html += "<ul><li><a href=" & Chr(34) & "#" & Chr(34) & ">Lista Token</a></li>" & vbCrLf
         html += "<li><a href=" & Chr(34) & "error.html" & Chr(34) & ">Lista Error</a></li>" & vbCrLf
-        html += "<li><a href=" & Chr(34) & "simbolo.html" & Chr(34) & ">Tabla Simbolos</a></li></ul>" & vbCrLf
+        html += "<li><a href=" & Chr(34) & "#" & Chr(34) & ">Tabla Simbolos</a></li></ul>" & vbCrLf
+        html += "</div></header>"
         html += "<h1>Token Reconocidos</h1>" & vbCrLf
         html += "<table>" & vbCrLf
         html += "<tr>" & vbCrLf
@@ -51,6 +52,7 @@ Class crearArchivo
         Dim info As Byte() = New UTF8Encoding(True).GetBytes(html)
         fs.Write(info, 0, info.Length)
         fs.Close()
+        MessageBox.Show("Se creó la tabla de token encontrados en " & path, "Exito")
     End Sub
 
     Public Sub errorHtml()
@@ -63,28 +65,36 @@ Class crearArchivo
         html += "<title>Tabla de Errores</title>" & vbCrLf
         html += "</head>" & vbCrLf
         html += "<body>" & vbCrLf
-        html += "<ul><li><a href=" & Chr(34) & "grafica.html" & Chr(34) & ">Resultados</a></li>" & vbCrLf
-        html += "<li><a href=" & Chr(34) & "token.html" & Chr(34) & ">Lista Token</a></li>" & vbCrLf
+        html += "<header><div class = " & Chr(34) & "menu" & Chr(34) & ">" & vbCrLf
+        html += "<ul><li><a href=" & Chr(34) & "token.html" & Chr(34) & ">Lista Token</a></li>" & vbCrLf
         html += "<li><a href=" & Chr(34) & "#" & Chr(34) & ">Lista Error</a></li>" & vbCrLf
-        html += "<li><a href=" & Chr(34) & "simbolo.html" & Chr(34) & ">Tabla Simbolos</a></li></ul>" & vbCrLf
+        html += "<li><a href=" & Chr(34) & "#" & Chr(34) & ">Tabla Simbolos</a></li></ul>" & vbCrLf
+        html += "</div></header>"
         html += "<h1>Token Reconocidos</h1>" & vbCrLf
-        html += "<table>" & vbCrLf
-        html += "<tr>" & vbCrLf
-        html += "<th>No</th>" & vbCrLf
-        html += "<th>Lexema</th>" & vbCrLf
-        html += "<th>Posición</th>" & vbCrLf
-        html += "<th>Error</th>" & vbCrLf
-        html += "</tr>" & vbCrLf
 
-        For t As Integer = 0 To ListaError.listaError.Count - 1 Step 1
-            html += "<tr><td>" & t + 1 & "</td>" & vbCrLf
-            html += "<td>" & ListaError.listaError.Item(t)._lexema & "</td>" & vbCrLf
-            html += "<td> Fila " & ListaError.listaError.Item(t)._fila & ", columna " & ListaError.listaError.Item(t)._columna & "</td>" & vbCrLf
-            html += "<td>" & ListaError.listaError.Item(t)._descripcion & "</td>" & vbCrLf
+        If (ListaError.listaError.Count > 0) Then
+            html += "<table>" & vbCrLf
+            html += "<tr>" & vbCrLf
+            html += "<th>No</th>" & vbCrLf
+            html += "<th>Lexema</th>" & vbCrLf
+            html += "<th>Posición</th>" & vbCrLf
+            html += "<th>Error</th>" & vbCrLf
             html += "</tr>" & vbCrLf
-        Next
 
-        html += "</table>" & vbCrLf
+            For t As Integer = 0 To ListaError.listaError.Count - 1 Step 1
+                html += "<tr><td>" & t + 1 & "</td>" & vbCrLf
+                html += "<td>" & ListaError.listaError.Item(t)._lexema & "</td>" & vbCrLf
+                html += "<td> Fila " & ListaError.listaError.Item(t)._fila & ", columna " & ListaError.listaError.Item(t)._columna & "</td>" & vbCrLf
+                html += "<td>" & ListaError.listaError.Item(t)._descripcion & "</td>" & vbCrLf
+                html += "</tr>" & vbCrLf
+            Next
+
+            html += "</table>" & vbCrLf
+
+        Else
+            html += "</br><p class = exito>¡Genial! No hay errores</p>"
+        End If
+        
         html += "<footer><p><b>Lenguajes Formales y de Programación</b></p>" & vbCrLf
         html += "<p>Marco Antonio Chávez Fuentes</p>" & vbCrLf
         html += "<p>2010-20831</p></footer>" & vbCrLf
@@ -101,6 +111,7 @@ Class crearArchivo
         Dim info As Byte() = New UTF8Encoding(True).GetBytes(html)
         fs.Write(info, 0, info.Length)
         fs.Close()
+        MessageBox.Show("Se creó la tabla de errores encontrados en " & path, "Exito")
     End Sub
 
 End Class

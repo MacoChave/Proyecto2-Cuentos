@@ -92,7 +92,8 @@
     End Sub
 
     Private Sub MenuSalir_Click(sender As Object, e As EventArgs) Handles MenuSalir.Click
-        End
+        Me.Close()
+        Inicio.Show()
     End Sub
 
     Private Sub MenuManual_Click(sender As Object, e As EventArgs) Handles MenuManual.Click
