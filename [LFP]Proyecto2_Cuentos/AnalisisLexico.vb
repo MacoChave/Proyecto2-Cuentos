@@ -264,6 +264,10 @@ Public Class AnalisisLexico
                             columna += 1
                             estado = 7
                             'caracter -> ESTADO G - 6
+                        Case 1, 2 'L, l
+                            lexema += caracter
+                            columna += 1
+                            estado = 6
                         Case 19 'caracter
                             lexema += caracter
                             columna += 1
@@ -330,6 +334,9 @@ Public Class AnalisisLexico
                             columna += 1
                             estado = 4
                             'caracter -> ESTADO G - 6
+                        Case 1, 2 'L, l
+                            lexema += caracter
+                            columna += 1
                         Case Else
                             lexema += caracter
                             columna += 1

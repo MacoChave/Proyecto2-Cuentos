@@ -9,15 +9,7 @@
         '" & chr(10) & " SALTO
         '" & chr(34) & " COMILLAS
         Dim texto As String
-        texto = "Grafica" & Chr(10) &
-            "{" & Chr(10) &
-            Chr(9) & "Nombre: " & Chr(34) & "Nombre de la grafica" & Chr(34) & ";" & Chr(10) &
-            Chr(9) & "Tipo: " & Chr(34) & "Barras|Circular" & Chr(34) & ";" & Chr(10) &
-            Chr(9) & "Datos:" & Chr(10) &
-            Chr(9) & "{" & Chr(10) &
-            Chr(9) & Chr(9) & "Intervalo 1 = {[ Limite inferior - Limite superior ], Frecuencia absoluta};" & Chr(10) &
-            Chr(9) & "}" & Chr(10) &
-            "}"
+        texto = "Puede comenzar escribiendo aquí..."
         addPage("Pestaña " & contador + 1, texto)
     End Sub
 
@@ -103,18 +95,6 @@
         End
     End Sub
 
-    Private Sub MenuGenerarArchivo_Click(sender As Object, e As EventArgs) Handles MenuGenerarArchivo.Click
-        Try
-            archivos.tokenHtml()
-            archivos.errorHtml()
-            MessageBox.Show("Tablas generadas satisfactoriamente" & vbCrLf &
-                            "Las tablas se encuentran en el escritorio", "¡EXITO!")
-        Catch ex As Exception
-            MessageBox.Show(ex.Message, "¡ERROR!")
-        End Try
-
-    End Sub
-
     Private Sub MenuManual_Click(sender As Object, e As EventArgs) Handles MenuManual.Click
         System.Diagnostics.Process.Start("file:///C:/Users/u/Desktop/Practica-2 LFP/Documentacion/Manual de usuario.pdf")
     End Sub
@@ -152,6 +132,11 @@
     End Sub
 
     Private Sub btnGenerarArchivos_Click(sender As Object, e As EventArgs) Handles btnGenerarArchivos.Click
-
+        Try
+            archivos.tokenHtml()
+            archivos.errorHtml()
+        Catch ex As Exception
+            MessageBox.Show(ex.Message)
+        End Try
     End Sub
 End Class
