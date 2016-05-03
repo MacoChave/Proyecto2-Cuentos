@@ -180,59 +180,59 @@ Public Class AnalisisLexico
                                 id_aux = 27
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("traductor_a_voz")) Then
-                                token = "metodoTraducir"
+                                token = "nombre"
                                 id_aux = 28
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("resaltar_palabra")) Then
-                                token = "metodoTexto"
+                                token = "nombre"
                                 id_aux = 29
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("mostrar_texto_cuento")) Then
-                                token = "metodoResaltar"
+                                token = "nombre"
                                 id_aux = 30
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("titulo")) Then
-                                token = "variableTitulo"
+                                token = "variable"
                                 id_aux = 31
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("cuento")) Then
-                                token = "variableCuento"
+                                token = "variable"
                                 id_aux = 32
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("imagen")) Then
-                                token = "variableImagen"
+                                token = "variable"
                                 id_aux = 33
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("tipoVoz")) Then
-                                token = "variableTipoVoz"
+                                token = "variable"
                                 id_aux = 34
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("volumen")) Then
-                                token = "variableVolumen"
+                                token = "variable"
                                 id_aux = 35
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("velocidad")) Then
-                                token = "variableVelocidad"
+                                token = "variable"
                                 id_aux = 36
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("traduccion")) Then
-                                token = "variableTraduccion"
+                                token = "variable"
                                 id_aux = 37
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("resaltar")) Then
-                                token = "variableResaltar"
+                                token = "variable"
                                 id_aux = 38
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("texto")) Then
-                                token = "variableTexto"
+                                token = "variable"
                                 id_aux = 39
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("True")) Then
-                                token = "true"
+                                token = "si"
                                 id_aux = 40
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("False")) Then
-                                token = "false"
+                                token = "no"
                                 id_aux = 41
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("Female")) Then
@@ -318,7 +318,7 @@ Public Class AnalisisLexico
                 Case 5 'ESTADO F
                     Select Case tipoCaracter
                         '\n -> ESTADO E - 4
-                        Case 17 '\n
+                        Case 18 '\n
                             estado = 0
                             fila += 1
                             columna = 0
@@ -359,24 +359,10 @@ Public Class AnalisisLexico
                             ListaError.listaError.Add(errorEncontrado)
                     End Select
                 Case 8 'ESTADO I
-                    Select Case tipoCaracter
                         'INICIA COMENTARIO DE VARIAS LÍNEAS
-                        '" -> ESTADO  J - 9
-                        Case 3
-                            lexema = Nothing
-                            columna += 1
-                            estado = 9
-                            'cualquiera ERROR
-                        Case Else
-                            columna += 1
-                            'AGREGAR ERROR
-                            errorEncontrado = New Errores
-                            errorEncontrado._columna = columna
-                            errorEncontrado._fila = fila
-                            errorEncontrado._lexema = caracter
-                            errorEncontrado._descripcion = "Error léxico, caracter desconocido"
-                            ListaError.listaError.Add(errorEncontrado)
-                    End Select
+                    '" -> ESTADO  J - 9
+                    estado = 9
+                    columna += 1
                 Case 9 'ESTADO J
                     Select Case tipoCaracter
                         '" -> ESTADO K - 10
@@ -426,6 +412,8 @@ Public Class AnalisisLexico
                             ListaError.listaError.Add(errorEncontrado)
                     End Select
             End Select
+            tokenEncontrado = Nothing
+            errorEncontrado = Nothing
         Next
     End Sub
 

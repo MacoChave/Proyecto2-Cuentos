@@ -48,6 +48,7 @@
         newRText.ForeColor = Color.Teal
         newRText.Font = New Font("Consolas", 12, FontStyle.Regular, GraphicsUnit.Pixel)
         newRText.Text = texto
+        newRText.AcceptsTab = True
 
         newPage.Controls.Add(newRText)
     End Sub
@@ -136,6 +137,7 @@
         Try
             archivos.tokenHtml()
             archivos.errorHtml()
+            System.Diagnostics.Process.Start("C:\Users\Public\Documents\token.html")
         Catch ex As Exception
             MessageBox.Show(ex.Message)
         End Try
