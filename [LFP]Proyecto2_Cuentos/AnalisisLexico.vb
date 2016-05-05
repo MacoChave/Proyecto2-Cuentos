@@ -180,15 +180,15 @@ Public Class AnalisisLexico
                                 id_aux = 27
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("traductor_a_voz")) Then
-                                token = "nombre"
+                                token = "metodo"
                                 id_aux = 28
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("resaltar_palabra")) Then
-                                token = "nombre"
+                                token = "metodo"
                                 id_aux = 29
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("mostrar_texto_cuento")) Then
-                                token = "nombre"
+                                token = "metodo"
                                 id_aux = 30
                                 'AGREGAR TOKEN
                             ElseIf (lexema.Equals("titulo")) Then
@@ -235,13 +235,13 @@ Public Class AnalisisLexico
                                 token = "no"
                                 id_aux = 41
                                 'AGREGAR TOKEN
-                            ElseIf (lexema.Equals("Female")) Then
-                                token = "f"
-                                id_aux = 42
-                                'AGREGAR TOKEN
-                            ElseIf (lexema.Equals("Male")) Then
-                                token = "m"
-                                id_aux = 43
+                                'ElseIf (lexema.Equals("Female")) Then
+                                '    token = "f"
+                                '    id_aux = 42
+                                '    'AGREGAR TOKEN
+                                'ElseIf (lexema.Equals("Male")) Then
+                                '    token = "m"
+                                '    id_aux = 43
                                 'AGREGAR TOKEN
                             Else
                                 token = "nombre"
@@ -331,8 +331,16 @@ Public Class AnalisisLexico
                         '" -> ESTADO E - 4
                         Case 3
                             lexema += caracter
-                            token = "cadena"
-                            id_aux = 21
+                            If (lexema.Equals(Chr(34) & "Female" & Chr(34))) Then
+                                token = "f"
+                                id_aux = 42
+                            ElseIf (lexema.Equals(Chr(34) & "Male" & Chr(34))) Then
+                                token = "m"
+                                id_aux = 43
+                            Else
+                                token = "cadena"
+                                id_aux = 21
+                            End If
                             columna += 1
                             estado = 4
                             'caracter -> ESTADO G - 6

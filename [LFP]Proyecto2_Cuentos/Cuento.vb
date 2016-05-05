@@ -1,120 +1,98 @@
 ﻿Public Class Cuento
-    Private idCuento As Integer
-    Private titulo As String
-    Private cuento As String
-    Private imagen As String
-    Private tipoVoz As String
-    Private volumen As Integer
-    Private velocidad As Integer
-    Private traduccion As Boolean
-    Private resaltar As Boolean
-    Private texto As Boolean
+    Private idClase As Integer
+    Private idMetodo As Integer
+    Private variable As String
+    Private token As String
+    Private tipoDato As String
+    Private datoInt As Integer
+    Private datoString As String
+    Private datoBoolean As Boolean
 
     Sub New()
 
     End Sub
 
-    Sub New(idCuento As Integer, titulo As String, cuento As String, imagen As String, tipoVoz As String, volumen As Integer, velocidad As Integer, traduccion As Boolean, resaltar As Boolean, texto As Boolean)
-        Me.idCuento = idCuento
-        Me.titulo = titulo
-        Me.cuento = cuento
-        Me.imagen = imagen
-        Me.tipoVoz = tipoVoz
-        Me.volumen = volumen
-        Me.velocidad = velocidad
-        Me.traduccion = traduccion
-        Me.resaltar = resaltar
-        Me.texto = texto
+    Sub New(idClase As Integer, idMetodo As Integer, variable As String, token As String, tipoDato As String, datoInt As Integer, datoString As String, datoBoolean As Boolean)
+        Me.idClase = idClase
+        Me.idMetodo = idMetodo
+        Me.variable = variable
+        Me.token = token
+        Me.tipoDato = tipoDato
+        Me.datoInt = datoInt
+        Me.datoString = datoString
+        Me.datoBoolean = datoBoolean
     End Sub
 
-    'id
-    Public Property _id As Integer
+    'idClase
+    Public Property _idClase As Integer
         Get
-            Return idCuento
+            Return idClase
         End Get
         Set(value As Integer)
-            idCuento = value
+            idClase = value
         End Set
     End Property
-    'titulo
-    Public Property _titulo As String
+    'idMetodo
+    Public Property _idMetodo As String
         Get
-            Return titulo
+            Return idMetodo
         End Get
         Set(value As String)
-            titulo = value
+            idMetodo = value
         End Set
     End Property
-    'cuento
-    Public Property _cuento As String
+    'lexema
+    Public Property _variable As String
         Get
-            Return cuento
+            Return variable
         End Get
         Set(value As String)
-            cuento = value
+            variable = value
         End Set
     End Property
-    'imagen
-    Public Property _imagen As String
+    'token
+    Public Property _token As String
         Get
-            Return imagen
+            Return token
         End Get
         Set(value As String)
-            imagen = value
+            token = value
         End Set
     End Property
-    'tipoVoz
-    Public Property _tipoVoz As String
+    'tipoDato
+    Public Property _tipoDato As String
         Get
-            Return tipoVoz
+            Return tipoDato
         End Get
         Set(value As String)
-            tipoVoz = value
+            tipoDato = value
         End Set
     End Property
-    'volumen
-    Public Property _volumen As Integer
+    'datoInt
+    Public Property _datoInt As Integer
         Get
-            Return volumen
+            Return datoInt
         End Get
         Set(value As Integer)
-            volumen = value
+            datoInt = value
         End Set
     End Property
-    'velocidad
-    Public Property _velocidad As Integer
+    'datoString
+    Public Property _datoString As Integer
         Get
-            Return velocidad
+            Return datoString
         End Get
         Set(value As Integer)
-            velocidad = value
+            datoString = value
         End Set
     End Property
-    'traduccion
-    Public Property _traduccion As Boolean
+    'datoBoolean
+    Public Property _datoBoolean As Boolean
         Get
-            Return traduccion
+            Return datoBoolean
         End Get
         Set(value As Boolean)
-            traduccion = value
-        End Set
-    End Property
-    'resaltar
-    Public Property _resaltar As Boolean
-        Get
-            Return resaltar
-        End Get
-        Set(value As Boolean)
-            resaltar = value
-        End Set
-    End Property
-    'texto
-    Public Property _texto As Boolean
-        Get
-            Return texto
-        End Get
-        Set(value As Boolean)
-            texto = value
+            datoBoolean = value
         End Set
     End Property
 End Class

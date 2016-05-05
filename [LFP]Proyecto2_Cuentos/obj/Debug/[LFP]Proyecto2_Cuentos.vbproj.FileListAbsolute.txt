@@ -9,3 +9,4 @@ C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\
 C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\[LFP]Proyecto2_Cuentos.exe
 C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\[LFP]Proyecto2_Cuentos.xml
 C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\[LFP]Proyecto2_Cuentos.pdb
+C:\Users\u\Visual Studio 2013\[LFP]Proyecto2_Cuentos\[LFP]Proyecto2_Cuentos\obj\Debug\_LFP_Proyecto2_Cuentos.Didactico.resources

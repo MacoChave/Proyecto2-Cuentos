@@ -80,6 +80,12 @@
     <Compile Include="Desarrollador.vb">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="Didactico.Designer.vb">
+      <DependentUpon>Didactico.vb</DependentUpon>
+    </Compile>
+    <Compile Include="Didactico.vb">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Include="Errores.vb" />
     <Compile Include="Inicio.vb">
       <SubType>Form</SubType>
@@ -111,6 +117,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Desarrollador.resx">
       <DependentUpon>Desarrollador.vb</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Didactico.resx">
+      <DependentUpon>Didactico.vb</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Inicio.resx">
       <DependentUpon>Inicio.vb</DependentUpon>
