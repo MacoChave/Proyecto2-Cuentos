@@ -78,11 +78,11 @@
         End Set
     End Property
     'datoString
-    Public Property _datoString As Integer
+    Public Property _datoString As String
         Get
             Return datoString
         End Get
-        Set(value As Integer)
+        Set(value As String)
             datoString = value
         End Set
     End Property

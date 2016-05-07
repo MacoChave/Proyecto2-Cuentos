@@ -16,6 +16,7 @@ Public Class AnalisisLexico
     Public Sub Analizar(texto As String)
         ListaToken.listaToken.Clear()
         ListaError.listaError.Clear()
+
         estado = 0
         fila = 1
         columna = 0
@@ -124,10 +125,10 @@ Public Class AnalisisLexico
                                     columna += 1
                                     estado = 5
                                 Else
-                                    MessageBox.Show("Análisis léxico finalizado")
+                                    MessageBox.Show("Análisis léxico finalizado :)")
                                 End If
                             Catch ex As Exception
-                                MessageBox.Show(ex.Message)
+                                MessageBox.Show(":(" & ex.Message, "¡ERROR!")
                             End Try
                             '17 - ESPACIO
                         Case 17
@@ -179,7 +180,7 @@ Public Class AnalisisLexico
                                 token = "referencia"
                                 id_aux = 27
                                 'AGREGAR TOKEN
-                            ElseIf (lexema.Equals("traductor_a_voz")) Then
+                            ElseIf (lexema.Equals("traducir_a_voz")) Then
                                 token = "metodo"
                                 id_aux = 28
                                 'AGREGAR TOKEN

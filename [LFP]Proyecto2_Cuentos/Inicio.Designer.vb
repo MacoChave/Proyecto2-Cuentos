@@ -22,13 +22,18 @@ Partial Class Inicio
     'No lo modifique con el editor de código.
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
+        Dim resources As System.ComponentModel.ComponentResourceManager = New System.ComponentModel.ComponentResourceManager(GetType(Inicio))
         Me.btnDesarrollador = New System.Windows.Forms.Button()
         Me.btnDidactico = New System.Windows.Forms.Button()
         Me.SuspendLayout()
         '
         'btnDesarrollador
         '
+        Me.btnDesarrollador.BackgroundImage = CType(resources.GetObject("btnDesarrollador.BackgroundImage"), System.Drawing.Image)
+        Me.btnDesarrollador.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.btnDesarrollador.Dock = System.Windows.Forms.DockStyle.Left
+        Me.btnDesarrollador.Font = New System.Drawing.Font("Microsoft Sans Serif", 24.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDesarrollador.ForeColor = System.Drawing.Color.Teal
         Me.btnDesarrollador.Location = New System.Drawing.Point(0, 0)
         Me.btnDesarrollador.Margin = New System.Windows.Forms.Padding(0)
         Me.btnDesarrollador.Name = "btnDesarrollador"
@@ -39,7 +44,11 @@ Partial Class Inicio
         '
         'btnDidactico
         '
+        Me.btnDidactico.BackgroundImage = CType(resources.GetObject("btnDidactico.BackgroundImage"), System.Drawing.Image)
+        Me.btnDidactico.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch
         Me.btnDidactico.Dock = System.Windows.Forms.DockStyle.Right
+        Me.btnDidactico.Font = New System.Drawing.Font("Microsoft Sans Serif", 25.0!, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, CType(0, Byte))
+        Me.btnDidactico.ForeColor = System.Drawing.Color.Teal
         Me.btnDidactico.Location = New System.Drawing.Point(242, 0)
         Me.btnDidactico.Margin = New System.Windows.Forms.Padding(0)
         Me.btnDidactico.Name = "btnDidactico"

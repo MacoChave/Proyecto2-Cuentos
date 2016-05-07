@@ -9,7 +9,7 @@
         '" & chr(10) & " SALTO
         '" & chr(34) & " COMILLAS
         Dim texto As String
-        texto = "Puede comenzar escribiendo aquí..."
+        texto = "Puedes comenzar escribiendo aquí... :)"
         addPage("Pestaña " & contador + 1, texto)
     End Sub
 
@@ -24,7 +24,7 @@
             addPage(OFD.SafeFileName, SR.ReadToEnd)
             SR.Close()
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "¡ERROR!")
+            MessageBox.Show(":(" & ex.Message, "¡ERROR!")
         End Try
 
     End Sub
@@ -71,7 +71,7 @@
                 Next
             End If
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "¡ERROR!")
+            MessageBox.Show(":(" & ex.Message, "¡ERROR!")
         End Try
     End Sub
 
@@ -79,7 +79,7 @@
         Try
             TabControl.TabPages.Remove(TabControl.SelectedTab)
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "¡ERROR!")
+            MessageBox.Show(":(" & ex.Message, "¡ERROR!")
         End Try
     End Sub
 
@@ -88,13 +88,12 @@
             TabControl.TabPages.Clear()
             contador = 0
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "¡ERROR!")
+            MessageBox.Show(":(" & ex.Message, "¡ERROR!")
         End Try
     End Sub
 
     Private Sub MenuSalir_Click(sender As Object, e As EventArgs) Handles MenuSalir.Click
-        Me.Close()
-        Inicio.Show()
+        Me.Hide()
     End Sub
 
     Private Sub MenuManual_Click(sender As Object, e As EventArgs) Handles MenuManual.Click
@@ -119,13 +118,13 @@
                 Next
             End If
         Catch ex As Exception
-            MessageBox.Show(ex.Message, "¡ERROR!")
+            MessageBox.Show(":(" & ex.Message, "¡ERROR!")
         End Try
     End Sub
 
     Private Sub btnASintactico_Click(sender As Object, e As EventArgs) Handles btnASintactico.Click
         If (ListaError.listaError.Count > 0) Then
-            MessageBox.Show("Se encontraron errores léxicos" & vbCrLf &
+            MessageBox.Show("Se encontraron errores léxicos :(" & vbCrLf &
                             "No se procederá con el análisis sintactico" & vbCrLf &
                             "Genere archivos para ver los errores", "¡ERROR!")
         Else
@@ -139,7 +138,8 @@
             archivos.errorHtml()
             System.Diagnostics.Process.Start("C:\Users\Public\Documents\token.html")
         Catch ex As Exception
-            MessageBox.Show(ex.Message)
+            MessageBox.Show(":(" & ex.Message, "¡Error!")
         End Try
     End Sub
+
 End Class

@@ -1,7 +1,7 @@
 ﻿
 Class AnalisisSintactico
     'DATOS DEL CUENTO
-    Private idClase As Integer
+    Private idClase As Integer = -1
     Private idMetodo As Integer
     Private variable As String
     Private token As String
@@ -44,11 +44,16 @@ Class AnalisisSintactico
                     pila.Push("S")
                     destino = "q"
                 Case "q"
-                    If (contador < tope) Then
+                    If (contador <= tope) Then
                         'ENTRADA A ANALIZAR
-                        entrada = ListaToken.listaToken.Item(contador)._token
-                        idClase = 0
+                        Try
+                            entrada = ListaToken.listaToken.Item(contador)._token
+                        Catch ex As Exception
+                            Console.WriteLine(ex.Message)
+                        End Try
+
                         Select Case pila.Peek
+
                             'TERMINALES
                             Case "clase"
                                 Console.WriteLine(pila.Pop)
@@ -96,6 +101,10 @@ Class AnalisisSintactico
                                 Console.WriteLine(pila.Pop)
                             Case "si"
                                 Console.WriteLine(pila.Pop)
+                            Case "f"
+                                Console.WriteLine(pila.Pop)
+                            Case "m"
+                                Console.WriteLine(pila.Pop)
 
                                 'NO TERMINALES
                             Case "S"
@@ -103,7 +112,7 @@ Class AnalisisSintactico
                                     pila.Pop()
                                     pila.Push("CLASE")
                                     pila.Push(entrada)
-                                    siguiente = "nombre"
+                                    siguiente = "nombre de clase"
                                     contador += 1
                                 Else
                                     errorEncontrado = New Errores
@@ -111,12 +120,15 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(contador)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(contador)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba reservada class"
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
                                     contador += 1
                                 End If
                             Case "CLASE"
                                 If (entrada.Equals("clase")) Then
                                     pila.Push(entrada)
-                                    siguiente = "nombre"
+                                    siguiente = "nombre de clase"
                                     contador += 1
                                 ElseIf (entrada.Equals("nombre")) Then
                                     pila.Push(entrada)
@@ -137,6 +149,7 @@ Class AnalisisSintactico
                                     Else
                                         pila.Pop()
                                         pila.Push(entrada)
+                                        contador += 1
                                     End If
                                 Else
                                     errorEncontrado = New Errores
@@ -144,6 +157,9 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(contador)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(contador)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba " & siguiente
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
                                     contador += 1
                                 End If
                             Case "CUERPO"
@@ -168,6 +184,9 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(contador)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(contador)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba " & siguiente
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
                                     contador += 1
                                 End If
                             Case "CONSTRUCTOR"
@@ -205,6 +224,9 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(contador)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(contador)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba " & siguiente
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
                                     contador += 1
                                 End If
                             Case "VARCONSTRUCTOR"
@@ -230,18 +252,18 @@ Class AnalisisSintactico
                                 If (entrada.Equals("definicion")) Then
                                     pila.Push(entrada)
                                     contador += 1
-                                    siguiente = "nombre"
+                                    siguiente = "nombre de metodo"
                                     finMet = False
                                 ElseIf (entrada.Equals("metodo")) Then
                                     pila.Push(entrada)
                                     contador += 1
                                     siguiente = "("
                                     'DIFERENCIAR LOS METODOS
-                                    If (ListaToken.listaToken.Item(i)._lexema.Equals("traducir_a_voz")) Then
+                                    If (ListaToken.listaToken.Item(contador - 1)._lexema.Equals("traducir_a_voz")) Then
                                         idMetodo = 1
-                                    ElseIf (ListaToken.listaToken.Item(i)._lexema.Equals("resaltar_palabra")) Then
+                                    ElseIf (ListaToken.listaToken.Item(contador - 1)._lexema.Equals("resaltar_palabra")) Then
                                         idMetodo = 2
-                                    ElseIf (ListaToken.listaToken.Item(i)._lexema.Equals("mostrar_texto_cuento")) Then
+                                    ElseIf (ListaToken.listaToken.Item(contador - 1)._lexema.Equals("mostrar_texto_cuento")) Then
                                         idMetodo = 3
                                     End If
                                 ElseIf (entrada.Equals("(")) Then
@@ -262,14 +284,15 @@ Class AnalisisSintactico
                                     contador += 1
                                     siguiente = "variable"
                                 ElseIf (entrada.Equals("}")) Then
-                                    If (finMet) Then
+                                    If (ListaToken.listaToken.Item(contador + 1)._token.Equals("}")) Then
                                         pila.Pop()
+                                        idMetodo = Nothing
+                                        siguiente = "cierre de clase"
                                     Else
-                                        pila.Push(entrada)
-                                        contador += 1
-                                        siguiente = "reservada def o cierre de clase"
-                                        finMet = True
+                                        siguiente = "reservada def"
                                     End If
+                                    pila.Push(entrada)
+                                    contador += 1
                                 Else
                                     pila.Pop()
                                     errorEncontrado = New Errores
@@ -277,7 +300,10 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(i)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(i)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba " & siguiente
-                                    i += 1
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
+                                    'contador += 1
                                 End If
                             Case "VARIABLE"
                                 If (entrada.Equals("variable")) Then
@@ -285,7 +311,7 @@ Class AnalisisSintactico
                                     contador += 1
                                     siguiente = "="
 
-                                    variable = ListaToken.listaToken.Item(i)._lexema
+                                    variable = ListaToken.listaToken.Item(contador - 1)._lexema
                                 ElseIf (entrada.Equals("=")) Then
                                     pila.Pop()
                                     pila.Push("VALOR")
@@ -298,6 +324,9 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(contador)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(contador)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba " & siguiente
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
                                     contador += 1
                                 End If
                             Case "VALOR"
@@ -310,7 +339,7 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
 
-                                    lexema = ListaToken.listaToken.Item(i)._lexema
+                                    lexema = ListaToken.listaToken.Item(contador - 1)._lexema
 
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
@@ -329,7 +358,7 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
 
-                                    lexema = ListaToken.listaToken.Item(i)._lexema
+                                    lexema = ListaToken.listaToken.Item(contador - 1)._lexema
 
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
@@ -348,7 +377,7 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
 
-                                    lexema = ListaToken.listaToken.Item(i)._lexema
+                                    lexema = ListaToken.listaToken.Item(contador - 1)._lexema
 
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
@@ -367,7 +396,7 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
 
-                                    lexema = ListaToken.listaToken.Item(i)._lexema
+                                    lexema = ListaToken.listaToken.Item(contador - 1)._lexema
 
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
@@ -386,7 +415,7 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
 
-                                    lexema = ListaToken.listaToken.Item(i)._lexema
+                                    lexema = ListaToken.listaToken.Item(contador - 1)._lexema
 
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
@@ -405,7 +434,7 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
 
-                                    lexema = ListaToken.listaToken.Item(i)._lexema
+                                    lexema = ListaToken.listaToken.Item(contador - 1)._lexema
 
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
@@ -419,6 +448,10 @@ Class AnalisisSintactico
                                     cuentoNuevo = Nothing
                                     variable = Nothing
                                     lexema = Nothing
+                                ElseIf (entrada.Equals("-")) Then
+                                    pila.Pop()
+                                    pila.Push("E")
+                                    pila.Push(entrada)
                                 Else
                                     pila.Pop()
                                     pila.Push("E")
@@ -447,6 +480,9 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(contador)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(contador)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba " & siguiente
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
                                     contador += 1
                                 End If
                             Case "VARS"
@@ -457,7 +493,7 @@ Class AnalisisSintactico
                                     contador += 1
                                     siguiente = ","
 
-                                    variable = ListaToken.listaToken.Item(i)._lexema
+                                    variable = ListaToken.listaToken.Item(contador)._lexema
                                     var.Push(variable)
                                 ElseIf (entrada.Equals("=")) Then
                                     pila.Pop()
@@ -472,6 +508,9 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(contador)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(contador)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba " & siguiente
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
                                     contador += 1
                                 End If
                             Case "LISTAVAR"
@@ -498,6 +537,9 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(contador)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(contador)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba " & siguiente
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
                                     contador += 1
                                 End If
                             Case "VALORES"
@@ -571,17 +613,22 @@ Class AnalisisSintactico
                                     errorEncontrado._fila = ListaToken.listaToken.Item(contador)._fila
                                     errorEncontrado._lexema = ListaToken.listaToken.Item(contador)._lexema
                                     errorEncontrado._descripcion = "Error sintáctico, se esperaba " & siguiente
+                                    ListaError.listaError.Add(errorEncontrado)
+
+                                    errorEncontrado = Nothing
                                     contador += 1
                                 End If
+
                             Case "#"
                                 pila.Pop()
+                                contador += 1
                                 destino = "f"
                         End Select
                     End If
 
                 Case "f"
                     finClase = False
-                    MessageBox.Show("Análisis sintáctico finalizado", "Exito")
+                    MessageBox.Show("Análisis sintáctico finalizado :)", "Exito")
             End Select
 
         End While
