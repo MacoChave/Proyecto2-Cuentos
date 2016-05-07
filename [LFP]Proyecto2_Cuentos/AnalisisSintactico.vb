@@ -10,6 +10,13 @@ Class AnalisisSintactico
     Private datoString As String
     Private datoBoolean As Boolean
 
+
+    Dim operador As String
+    Dim resultado As Integer
+    Dim num1 As Integer
+    Dim num2 As Integer
+    Dim num3 As Integer
+
     'MANEJO DE ERRORES
     Dim siguiente As String
     Dim errorEncontrado As New Errores
@@ -21,6 +28,8 @@ Class AnalisisSintactico
 
         Dim var As New Stack
         Dim auxVar As New Stack
+        Dim negativo As Boolean = False
+        Dim parentesis As Boolean = False
 
         Dim destino As Char = "i"
         Dim contador As Integer = 0
@@ -174,10 +183,12 @@ Class AnalisisSintactico
                                     pila.Push("TAGVAR")
                                     pila.Push(entrada)
                                     siguiente = "= o ,"
+
+                                    variable = ListaToken.listaToken(contador)._lexema
+                                    var.Push(variable)
+
                                     contador += 1
 
-                                    variable = ListaToken.listaToken(i)._lexema
-                                    var.Push(variable)
                                 Else
                                     errorEncontrado = New Errores
                                     errorEncontrado._columna = ListaToken.listaToken.Item(contador)._columna
@@ -311,7 +322,8 @@ Class AnalisisSintactico
                                     contador += 1
                                     siguiente = "="
 
-                                    variable = ListaToken.listaToken.Item(contador - 1)._lexema
+                                    'getValor(idClase, idMetodo, ListaToken.listaToken.Item(contador - 1)._lexema)
+
                                 ElseIf (entrada.Equals("=")) Then
                                     pila.Pop()
                                     pila.Push("VALOR")
@@ -331,7 +343,6 @@ Class AnalisisSintactico
                                 End If
                             Case "VALOR"
                                 If (auxVar.Count <> 0) Then
-                                    entrada = "nombre"
                                     token = "nombre"
                                 End If
                                 If (entrada.Equals("cadena")) Then
@@ -344,6 +355,11 @@ Class AnalisisSintactico
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
                                     cuentoNuevo._idMetodo = idMetodo
+
+                                    If auxVar.Count <> 0 Then
+                                        variable = auxVar.Pop
+                                    End If
+
                                     cuentoNuevo._variable = variable
                                     cuentoNuevo._token = entrada
                                     cuentoNuevo._tipoDato = "cadena"
@@ -357,12 +373,15 @@ Class AnalisisSintactico
                                     pila.Pop()
                                     pila.Push(entrada)
                                     contador += 1
-
-                                    lexema = ListaToken.listaToken.Item(contador - 1)._lexema
+                                    'getValor(idClase, idMetodo, ListaToken.listaToken.Item(contador - 1)._lexema)
+                                    'lexema = ListaToken.listaToken.Item(contador - 1)._lexema
 
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
                                     cuentoNuevo._idMetodo = idMetodo
+                                    If auxVar.Count <> 0 Then
+                                        variable = auxVar.Pop
+                                    End If
                                     cuentoNuevo._variable = variable
                                     cuentoNuevo._token = entrada
                                     cuentoNuevo._tipoDato = "variable"
@@ -377,7 +396,8 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
 
-                                    lexema = ListaToken.listaToken.Item(contador - 1)._lexema
+                                    'lexema = ListaToken.listaToken.Item(contador - 1)._lexema
+                                    lexema = True
 
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
@@ -385,6 +405,7 @@ Class AnalisisSintactico
                                     cuentoNuevo._variable = variable
                                     cuentoNuevo._token = entrada
                                     cuentoNuevo._tipoDato = "bandera"
+                                    'VARIABLE TIPO BANDERA
                                     cuentoNuevo._datoBoolean = lexema
                                     ListaCuento.listaCuento.Add(cuentoNuevo)
 
@@ -396,7 +417,8 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
 
-                                    lexema = ListaToken.listaToken.Item(contador - 1)._lexema
+                                    'lexema = ListaToken.listaToken.Item(contador - 1)._lexema
+                                    lexema = False
 
                                     cuentoNuevo = New Cuento
                                     cuentoNuevo._idClase = idClase
@@ -452,6 +474,8 @@ Class AnalisisSintactico
                                     pila.Pop()
                                     pila.Push("E")
                                     pila.Push(entrada)
+                                    contador += 1
+                                    negativo = True
                                 Else
                                     pila.Pop()
                                     pila.Push("E")
@@ -490,11 +514,12 @@ Class AnalisisSintactico
                                     pila.Pop()
                                     pila.Push("LISTAVAR")
                                     pila.Push(entrada)
-                                    contador += 1
                                     siguiente = ","
 
                                     variable = ListaToken.listaToken.Item(contador)._lexema
                                     var.Push(variable)
+
+                                    contador += 1
                                 ElseIf (entrada.Equals("=")) Then
                                     pila.Pop()
                                     pila.Push("VALORES")
@@ -567,13 +592,35 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
                                     siguiente = "valor"
+                                    operador = entrada
                                 ElseIf (entrada.Equals("-")) Then
                                     pila.Push("T")
                                     pila.Push(entrada)
                                     contador += 1
                                     siguiente = "valor"
+                                    operador = entrada
                                 Else
                                     pila.Pop()
+                                    datoInt = num1
+                                    contador += 1
+
+                                    cuentoNuevo = New Cuento
+                                    cuentoNuevo._idClase = idClase
+                                    cuentoNuevo._idMetodo = idMetodo
+
+                                    If auxVar.Count <> 0 Then
+                                        variable = auxVar.Pop
+                                    End If
+
+                                    cuentoNuevo._variable = variable
+                                    cuentoNuevo._token = "entero"
+                                    cuentoNuevo._tipoDato = "entero"
+                                    cuentoNuevo._datoInt = datoInt
+                                    ListaCuento.listaCuento.Add(cuentoNuevo)
+
+                                    cuentoNuevo = Nothing
+                                    variable = Nothing
+                                    lexema = Nothing
                                 End If
                             Case "T"
                                 pila.Pop()
@@ -585,28 +632,52 @@ Class AnalisisSintactico
                                     pila.Push(entrada)
                                     contador += 1
                                     siguiente = "valor"
+                                    operador = entrada
                                 ElseIf (entrada.Equals("/")) Then
                                     pila.Push("F")
                                     pila.Push(entrada)
                                     contador += 1
                                     siguiente = "valor"
+                                    operador = entrada
                                 Else
                                     pila.Pop()
                                 End If
                             Case "F"
                                 If (entrada.Equals("entero")) Then
-                                    pila.Pop()
-                                    pila.Push(entrada)
+                                    If negativo Then
+                                        pila.Pop()
+                                        pila.Push(entrada)
+                                        num1 = Integer.Parse(ListaToken.listaToken.Item(contador)._lexema) * -1
+
+                                    Else
+                                        pila.Pop()
+                                        pila.Push(entrada)
+                                        If num1 = 0 Then
+                                            num1 = Integer.Parse(ListaToken.listaToken.Item(contador)._lexema)
+                                        ElseIf num2 = 0 Then
+                                            num2 = Integer.Parse(ListaToken.listaToken.Item(contador)._lexema)
+                                            Dim n As Integer = getResultado(num1, num2, operador)
+                                            num1 = n
+                                            num2 = Nothing
+                                            operador = Nothing
+                                        ElseIf num3 = 0 Then
+                                            num3 = Integer.Parse(ListaToken.listaToken.Item(contador)._lexema)
+                                        End If
+                                    End If
+
                                     contador += 1
+                                    
                                 ElseIf (entrada.Equals("(")) Then
                                     pila.Push("E")
                                     pila.Push(entrada)
                                     contador += 1
                                     siguiente = "entero"
+                                    parentesis = True
                                 ElseIf (entrada.Equals(")")) Then
                                     pila.Pop()
                                     pila.Push(entrada)
                                     contador += 1
+                                    parentesis = False
                                 Else
                                     errorEncontrado = New Errores
                                     errorEncontrado._columna = ListaToken.listaToken.Item(contador)._columna
@@ -634,5 +705,37 @@ Class AnalisisSintactico
         End While
 
     End Sub
+
+    'Private Sub getValor(idClase As Integer, idMetodo As Integer, nombre As String)
+
+    '    For v As Integer = ListaCuento.listaCuento.Count - 1 To 0 Step 1
+    '        If ListaCuento.listaCuento.Item(v)._idClase = idClase Then
+    '            If ListaCuento.listaCuento.Item(v)._idMetodo = idMetodo And ListaCuento.listaCuento.Item(v)._variable = nombre Then
+    '                If ListaCuento.listaCuento.Item(v)._tipoDato = "cadena" Then
+    '                    datoString = ListaCuento.listaCuento.Item(v)._datoString
+    '                ElseIf ListaCuento.listaCuento.Item(v)._tipoDato = "entero" Then
+    '                    datoInt = ListaCuento.listaCuento.Item(v)._datoInt
+    '                ElseIf ListaCuento.listaCuento.Item(v)._tipoDato = "boolean" Then
+    '                    datoBoolean = ListaCuento.listaCuento.Item(v)._datoBoolean
+    '                End If
+    '            End If
+    '        End If
+    '    Next
+
+    'End Sub
+
+    Private Function getResultado(num1 As Integer, num2 As Integer, operador As String) As Integer
+        Dim res As Integer
+        If operador.Equals("+") Then
+            res = num1 + num2
+        ElseIf operador.Equals("-") Then
+            res = num1 - num2
+        ElseIf operador.Equals("*") Then
+            res = num1 * num2
+        ElseIf operador.Equals("/") Then
+            res = num1 / num2
+        End If
+        Return res
+    End Function
 
 End Class
